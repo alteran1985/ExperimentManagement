@@ -5,8 +5,8 @@ import java.util.*;
 
 public class FeatureModelManager {
 	private FeatureModel featureModel;
-	public FeatureModelManager(){
-		FeatureModelLoader modelLoader = new FeatureModelLoader();
+	public FeatureModelManager(String path){
+		FeatureModelLoader modelLoader = new FeatureModelLoader(path);
 		featureModel = modelLoader.get_feature_model();
 	}
 	

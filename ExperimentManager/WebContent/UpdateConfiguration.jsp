@@ -7,25 +7,39 @@
 <%@page import="java.util.*" %>
 <%@page import="java.util.jar.*" %>
 <%@page import="backend.Mediator" %>
+<%@page import="ontologyinterface.*" %>
 <HTML>
 <%
-	Mediator mediator = new Mediator();
-	FeatureModelLoader loader = new FeatureModelLoader();
+	Mediator mediator = (Mediator) session.getAttribute("mediator");
+	FeatureModelLoader loader = new FeatureModelLoader(mediator.getBasePath());
 	FeatureModel featureModel = loader.get_feature_model();
 	Configuration configuration = mediator.getConfiguration();
-	XMLFileWriter writer = new XMLFileWriter();
-	String responseToClient = "";
+	//XMLFileWriter writer = new XMLFileWriter();
+	//String responseToClient = "";
+	OntologyBuilder ontologyBuilder = mediator.getOntologyBuilder();
 
 	//Obtain the parameters and their values
 	String currentPhase = request.getParameter("currentPhase");
 	String controlType = request.getParameter("controlType");
 	String dataSource = request.getParameter("dataSource");
 	String value = request.getParameter("value");
+	//Create the individuals in the ontology
+	if(currentPhase.equals("Response")){
+		ontologyBuilder.addNewIndividual("Response");
+		ontologyBuilder.addNewDataProperty("value", value);
+	}else if(currentPhase.equals("FactorValue")){
+		ontologyBuilder.addNewIndividual("Level_Value");
+		ontologyBuilder.addNewDataProperty("value", value);
+	}
 	//Depending on the data source, do something different
 	if (dataSource.equals("FeatureModel")){ //Update the feature model directly
 		configuration.setManual(value, Selection.SELECTED);
 	}else{
 		if(currentPhase.equals("FactorLevels")){ //Based on the user input, select the corresponding feature
+			// Create the factor level individuals
+			for(int i = 0; i<Integer.parseInt(value); i++){
+				ontologyBuilder.addNewIndividual("Factor_Level");
+			}
 			switch(Integer.parseInt(value)){
 			case 1:
 				configuration.setManual("OneFactorLevel", Selection.SELECTED);
@@ -41,6 +55,9 @@
 				break;
 			}
 		}else if(currentPhase.equals("NumberOfFactors")){
+			for(int i = 0; i<Integer.parseInt(value); i++){
+				ontologyBuilder.addNewIndividual("Factor");
+			}
 			switch(Integer.parseInt(value)){
 			case 1:
 				configuration.setManual("OneFactor", Selection.SELECTED);
@@ -60,22 +77,9 @@
 			}
 		}
 	}
-	//Update the XML File
-	boolean isNew = false;
-	ArrayList<String> info = new ArrayList<String>();
-	//Add the current tag name
-	info.add(currentPhase);
-	//Add the parent tag
-	info.add(mediator.getInfo(currentPhase));
-	//Add the value
-	info.add(value);
-	System.out.println(info.toString());
-	if(currentPhase.equals("Objective")){
-		isNew = true;
-	}
-	responseToClient = "<p>" + writer.updateXML(isNew, info) + "</p>";
-	System.out.println(responseToClient);
+	//System.out.println(responseToClient);
 	mediator.saveConfiguration();
+	ontologyBuilder.printStructure();
 	response.sendRedirect("http://localhost:8080/ExperimentManager/main.jsp?phase=" + mediator.nextPhase());
 %>
 </HTML>

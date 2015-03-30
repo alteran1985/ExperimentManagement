@@ -64,10 +64,10 @@ public class XMLFileWriter {
 		//Check if its a new experiment, in which case we load the template, otherwise, load the current experiment XML
 		String filePath = "";
 		if(isNew){
-			filePath="C:/Users/azt0018/workspace/ExperimentManager/template.xml";
+			filePath="C:/Users/azt0018/git/ExperimentManager/template.xml";
 		}else{
 			System.out.println("Loading XML file...");
-			filePath="C:/Users/azt0018/workspace/ExperimentManager/current.xml";
+			filePath="C:/Users/azt0018/git/ExperimentManager/current.xml";
 		}
 		Document doc = loadXML(filePath);
 
@@ -96,7 +96,7 @@ public class XMLFileWriter {
 		try {
 			transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("C:/Users/azt0018/workspace/ExperimentManager/current.xml"));
+			StreamResult result = new StreamResult(new File("C:/Users/azt0018/git/ExperimentManager/current.xml"));
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
 			System.out.println("XML file updated successfully");

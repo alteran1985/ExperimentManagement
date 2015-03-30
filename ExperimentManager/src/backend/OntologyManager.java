@@ -26,13 +26,14 @@ public class OntologyManager {
 	OWLOntology ont;
 	IRI globalIRI;
 	int numComponentInfo = 5;
+	String path;
 	//return array: [hasCorrespondingControl, hasCorrespondingDataSource, hasCorrespondingValueType, DataSource literal value, DataSource literal type]
 	
-	public OntologyManager() { }
+	public OntologyManager(String ontologyPath) { path = ontologyPath; }
 	
 	boolean setOntology() {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		String fileLocation = "C:/Users/azt0018/workspace/ExperimentManager/ExperimentOntology.owl"; //String location of the ontology (path, filename, extension)
+		String fileLocation = path + "ExperimentOntology.owl"; //String location of the ontology (path, filename, extension)
 		
 		File file = new File(fileLocation);
 		OWLOntology localOnt = null;

@@ -81,3 +81,9 @@ function updateConfiguration(currentPhase, controlType, dataSource){
 	outputDiv.innerHTML = "";
 	requestAJAX("UpdateConfiguration.jsp", data, outputDiv);
 }
+
+function beginNewExperiment(){
+	var experimentName = document.getElementById("experimentName").value;
+	var modelFileName = document.getElementById("modelFile").value;
+	window.location.replace("main.jsp?experimentName=" + experimentName + "&modelFileName=" + modelFileName);
+}

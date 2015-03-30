@@ -7,11 +7,11 @@ import java.util.*;
 public class FeatureModelLoader {
 	private FeatureModel featureModel;
 	// Class constructor
-	public FeatureModelLoader(){
+	public FeatureModelLoader(String path){
 		// Load the feature model
 		XmlFeatureModelReader reader;
 		featureModel = new FeatureModel();
-		File modelFile = new File("C:/Users/azt0018/workspace/ExperimentManagementWeb/model.xml");
+		File modelFile = new File(path + "model.xml");
 		reader = new XmlFeatureModelReader(featureModel);
 		try {
 			reader.readFromFile(modelFile);

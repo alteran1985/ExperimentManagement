@@ -1,7 +1,9 @@
 package backend;
 import configuration.*;
 import model.*;
+import ontologyinterface.OntologyBuilder;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,40 +13,74 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import org.eclipse.core.resources.ResourcesPlugin;
+import javax.xml.parsers.*;
+
+import org.w3c.dom.*;
+
+//import com.google.common.io.Files;
+import static java.nio.file.StandardCopyOption.*;
 
 public class Mediator {
 	private OntologyManager ontologyManager;
 	private FeatureModelManager featureModelManager;
 	private static Configuration configuration; //The current configuration
-	private FeatureModel featureModel; //The current feature model
 	private static String currentPhase;
+	private OntologyBuilder ontologyBuilder;
+	private HashMap<String, HashMap<String, String[]>> modelData;
 	String[] componentInformation;
 	LinkedList<Feature> featureList;
 	private static Path path;
+	private String experimentName;
 	public static int phaseCounter = 1;
+	public static int auxiliaryCounter = 1;
 	public static int tempCounter = 0;
+	//private String basePath = "C:/Users/ALejandro/workspace/ExperimentManager/";
+	private String basePath = "C:/Users/azt0018/git/ExperimentManager/";
 		
 	//Instantiate a new mediator class
 	public Mediator(){
-
+		ontologyBuilder = new OntologyBuilder(basePath + "ExperimentOntology_base.owl", basePath +"newExperiment.owl");
+	}
+	
+	public Mediator(String expName, String modelFileName){
+		experimentName = expName;
+		//Find the current path
+		System.out.println("Model file: " + modelFileName);
+		//Generate the model data hash map
+		loadModelFile(modelFileName);
+		//Create a new folder for the output of this experiment
+		try{
+			System.out.println("Able to create new folder? " + new File(basePath + experimentName).mkdir());	
+		}catch(Exception e){
+			System.out.println("Error creating the folder: " + e.getMessage());
+		}
+		ontologyBuilder = new OntologyBuilder(basePath + "ExperimentOntology_base.owl", basePath + experimentName + "/newExperiment.owl");
 	}
 	
 	public Configuration getConfiguration(){
 		return configuration;
 	}
 	
+	public String getBasePath(){
+		return basePath;
+	}
+	
 	public String getCurrentPhase(){
 		return currentPhase;
+	}
+	
+	public OntologyBuilder getOntologyBuilder(){
+		return ontologyBuilder;
+	}
+	public HashMap<String, HashMap<String,String[]>> getModelData(){
+		return modelData;
 	}
 	// Function that runs the whole phase and returns an XML string
 	public String runPhase(String phase){
 		//Load the Ontology and the Feature model managers
-		ontologyManager = new OntologyManager();
-		featureModelManager = new FeatureModelManager();
+		ontologyManager = new OntologyManager(basePath);
+		featureModelManager = new FeatureModelManager(basePath);
 		configuration = new Configuration(featureModelManager.getFeatureModel());
-		
-		String xmlDescription = "";
 		currentPhase = phase;
 
 		//Obtain the current component information from the ontology manager
@@ -56,11 +92,7 @@ public class Mediator {
 			featureList = featureModelManager.obtainFeatures(phase, configuration);
 		}
 
-		//Generate screen
-		//Update configuration
-		//Save configuration
-		//Update and save XML
-		return xmlDescription;
+		return generateScreen();
 	}
 	//Function that updates a configuration
 	public Configuration updateConfiguration(Configuration configuration, ArrayList<Boolean> newValues){
@@ -150,25 +182,25 @@ public class Mediator {
 		ConfigurationReader reader = new ConfigurationReader(configuration);
 		InputStream inputStream = null;
 		boolean returnValue = false;
-		//Read the configuration from a file
-		path = Paths.get("C:/Users/azt0018/workspace/ExperimentManager/configs/default.config");
+		//Copy the configuration template file to the experiment folder
+		path = Paths.get(basePath + "configs/default.config");
 		try {
-			inputStream = new FileInputStream(path.toString());
+			Path templateConfiguration = Paths.get(basePath + "configs/default.config");
+			Path experimentConfiguration = Paths.get(basePath + experimentName + "/" + experimentName + ".config");
+			Files.copy(templateConfiguration, experimentConfiguration, REPLACE_EXISTING);
+			inputStream = new FileInputStream(basePath + experimentName + "/" + experimentName + ".config");
 			//inputStream = new FileInputStream("C:/Users/azt0018/workspace/ExperimentManager/configs/default.config");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("File not found!");
+		} catch (Exception e) {
+			System.out.println("There was a problem loading the configuration file!");
 		}
 		try {
 			return reader.readFromInputStream(inputStream);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				inputStream.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -181,47 +213,16 @@ public class Mediator {
 		writer.saveConfigurationToFile(path);
 	}
 	
-	//Temporary function that, given the current phase, returns the parent tag for the XML
-	public String getInfo(String phase){
-		String parentTag = "";
-		
-		switch(phase){
-		case "Objective":
-			parentTag = "experiment";
-			break;
-		case "VariableType":
-			parentTag = "Variable";
-			break;
-		case "FactorLevels":
-			parentTag = "Factor";
-			break;
-		case "FactorValue":
-			parentTag = "FactorLevel";
-			break;
-		case "SamplingMethod":
-			parentTag = "experiment";
-			break;
-		case "Response":
-			parentTag = "experiment";
-			break;
-		case "NumberOfFactors":
-			parentTag = "experiment";
-			break;
-		}
-		
-		return parentTag;
-	}
-	
 	//Temporary function that, given the current phase, moves on to the next one
 	public String nextPhase(){
 		String next = "";
-		
+		//TODO change this so that the next phase is chosen from the process flow and the user provided decisions.
 		if(phaseCounter == 0){ //Objective
 			next="Objective";
-		}else if(phaseCounter <= 3){
-			next="VariableType";
-		}else if(phaseCounter == 4){
+		}else if(phaseCounter == 2){
 			next="Response";
+		}else if(phaseCounter == 3){
+			next="Variable";
 		}else if(phaseCounter == 5){
 			next="NumberOfFactors";
 		}else if(phaseCounter <= 11){
@@ -243,5 +244,78 @@ public class Mediator {
 		phaseCounter++;
 		
 		return next;
+	}
+	
+	//Function that initializes a new experiment
+	public void beginNewExperiment(){
+		//Begin a new iteration
+		beginNewIteration();
+	}
+	
+	public void beginNewIteration(){
+		//Add a new iteration individual in our ontology
+		ontologyBuilder.addNewIndividual("Iteration");
+		//Add its children Results and Design
+		ontologyBuilder.addNewIndividual("Results");
+		ontologyBuilder.addNewIndividual("Design");
+	}
+	
+	public void addFactor(int numberOfFactorLevels){
+		ontologyBuilder.addNewIndividual("Factor");
+	}
+	
+	public void loadModelFile(String fileName){
+		//Instantiate our hash map
+		modelData = new HashMap<String, HashMap<String, String[]>>();
+		//Create a document builder factor for parsing an XML file
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder(); 
+			Document doc = db.parse(new File(fileName));
+			//Obtain the model's meta-data
+			NodeList model = doc.getElementsByTagName("model");
+			//Create hash map to store the model's meta data
+			HashMap<String, String[]> modelMetadata = new HashMap<String, String[]>();
+			//Add the model's name to the hash map
+			Element modelNode = (Element) model.item(0);
+			String modelName[] = {modelNode.getAttribute("name")};
+			//Add the hash map to the top level hash map
+			modelMetadata.put("name", modelName);
+			modelData.put("model", modelMetadata);
+			//Obtain the responses or outputs
+			NodeList output = doc.getElementsByTagName("response");
+			HashMap<String, String[]> responseMap = new HashMap<String, String[]>();
+			for(int i=0; i<output.getLength(); i++){
+				Element currentResponse = (Element)output.item(i);
+				String responseName = currentResponse.getAttribute("name");
+				String displayName = currentResponse.getAttribute("displayName");
+				String type = currentResponse.getAttribute("type");
+				String[] responseData = {displayName, type};
+				//Add to hash map
+				responseMap.put(responseName, responseData);
+				//Add to top hash map
+			}
+			modelData.put("responses", responseMap);
+			//Obtain the parameters or inputs
+			NodeList input = doc.getElementsByTagName("parameter");
+			HashMap<String, String[]> parameterMap = new HashMap<String, String[]>();
+			for(int i=0; i<input.getLength(); i++){
+				Element currentParameter = (Element)input.item(i);
+				String parameterName = currentParameter.getAttribute("name");
+				String displayName = currentParameter.getAttribute("displayName");
+				String type = currentParameter.getAttribute("type");
+				String[] parameterData = {displayName, type};
+				//Add to hash map
+				parameterMap.put(parameterName, parameterData);
+				//Add to top hash map
+			}
+			modelData.put("parameters", parameterMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("There was an error reading the simulation model XML file:" + e.getMessage());
+		}
+		System.out.println("Model data hash map: " + modelData.toString());
+		System.out.println("Number of parameters: " + modelData.get("parameters").size());
+		System.out.println("Number of responses: " + modelData.get("responses").size());
 	}
 }

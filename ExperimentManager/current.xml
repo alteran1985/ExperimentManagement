@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <experiment>
- <Objective>FactorScreening</Objective>
- <Variable>
-  <VariableType>Dependent</VariableType>
-  <VariableType>Independent</VariableType>
-  <VariableType>Control</VariableType>
- </Variable>
+<Objective>FactorScreening</Objective>
+<Variable>
+<VariableType>Dependent</VariableType>
+<VariableType>Independent</VariableType>
+<VariableType>Independent</VariableType>
+</Variable>
 <Response>OneResponse</Response>
 <NumberOfFactors>2</NumberOfFactors>
 <Factor>
@@ -15,8 +15,8 @@
 <FactorLevel>
 <FactorValue>5</FactorValue>
 <FactorValue>10</FactorValue>
-<FactorValue>1</FactorValue>
-<FactorValue>3</FactorValue>
+<FactorValue>15</FactorValue>
+<FactorValue>20</FactorValue>
 </FactorLevel>
 <SamplingMethod>FullFactorial</SamplingMethod>
 </experiment>
