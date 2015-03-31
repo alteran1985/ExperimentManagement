@@ -85,5 +85,6 @@ function updateConfiguration(currentPhase, controlType, dataSource){
 function beginNewExperiment(){
 	var experimentName = document.getElementById("experimentName").value;
 	var modelFileName = document.getElementById("modelFile").value;
+	alert(modelFileName);
 	window.location.replace("main.jsp?experimentName=" + experimentName + "&modelFileName=" + modelFileName);
 }

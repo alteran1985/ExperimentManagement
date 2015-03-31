@@ -11,7 +11,7 @@ public class FeatureModelLoader {
 		// Load the feature model
 		XmlFeatureModelReader reader;
 		featureModel = new FeatureModel();
-		File modelFile = new File(path + "model.xml");
+		File modelFile = new File(path);
 		reader = new XmlFeatureModelReader(featureModel);
 		try {
 			reader.readFromFile(modelFile);

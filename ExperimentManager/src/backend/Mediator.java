@@ -36,13 +36,14 @@ public class Mediator {
 	public static int tempCounter = 0;
 	//private String basePath = "C:/Users/ALejandro/workspace/ExperimentManager/";
 	private String basePath = "C:/Users/azt0018/git/ExperimentManager/";
+	private String currentModelFolder = "";
 		
 	//Instantiate a new mediator class
 	public Mediator(){
 		ontologyBuilder = new OntologyBuilder(basePath + "ExperimentOntology_base.owl", basePath +"newExperiment.owl");
 	}
 	
-	public Mediator(String expName, String modelFileName){
+	public Mediator(String expName, String modelFileName, String modelFolder){
 		experimentName = expName;
 		//Find the current path
 		System.out.println("Model file: " + modelFileName);
@@ -54,7 +55,8 @@ public class Mediator {
 		}catch(Exception e){
 			System.out.println("Error creating the folder: " + e.getMessage());
 		}
-		ontologyBuilder = new OntologyBuilder(basePath + "ExperimentOntology_base.owl", basePath + experimentName + "/newExperiment.owl");
+		ontologyBuilder = new OntologyBuilder(basePath + "ExperimentOntology_base.owl", modelFolder + "/newExperiment.owl");
+		currentModelFolder = modelFolder;
 	}
 	
 	public Configuration getConfiguration(){
@@ -186,9 +188,9 @@ public class Mediator {
 		path = Paths.get(basePath + "configs/default.config");
 		try {
 			Path templateConfiguration = Paths.get(basePath + "configs/default.config");
-			Path experimentConfiguration = Paths.get(basePath + experimentName + "/" + experimentName + ".config");
+			Path experimentConfiguration = Paths.get(currentModelFolder + experimentName + ".config");
 			Files.copy(templateConfiguration, experimentConfiguration, REPLACE_EXISTING);
-			inputStream = new FileInputStream(basePath + experimentName + "/" + experimentName + ".config");
+			inputStream = new FileInputStream(currentModelFolder + experimentName + ".config");
 			//inputStream = new FileInputStream("C:/Users/azt0018/workspace/ExperimentManager/configs/default.config");
 		} catch (Exception e) {
 			System.out.println("There was a problem loading the configuration file!");

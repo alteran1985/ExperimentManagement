@@ -9,11 +9,11 @@
 </head>
 <body style="margin:0px;padding: 0px;font: 8pt/14pt 'Lucida Grande', Verdana, Helvetica, sans-serif;color:#413e35;">
 	<h2 style="text-align:center;">Begin a new experiment</h2>
-	<p style="text-align:center;"><form action="javascript:beginNewExperiment();">
-		<p style="text-align:center;">Select a simulation model XML file:</p>
-		<p style="text-align:center;"><input type="file" id="modelFile" accept=".xml"></p>
+	<p style="text-align:center;"><form action="uploadFile.jsp" method="post" enctype="multipart/form-data">
 		<p style="text-align:center;">Type a name for this experiment:</p>
-		<p style="text-align:center;"><input type="text" id="experimentName"></p>
+		<p style="text-align:center;"><input type="text" name="experimentName"></p>
+		<p style="text-align:center;">Select a simulation model XML file:</p>
+		<p style="text-align:center;"><input type="file" name="modelFile" accept=".xml"></p>
 		<p style="text-align:center;"><input type="submit" value="Begin experiment"></p>
 	</form>
 </body>

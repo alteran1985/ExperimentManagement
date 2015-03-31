@@ -24,8 +24,10 @@ if((Mediator)session.getAttribute("mediator")==null){
 	//Retrieve the experiment name from the url
 	String experimentName = request.getParameter("experimentName");
 	String modelFileName = request.getParameter("modelFileName");
+	String modelLocation = request.getParameter("modelFolder");
 	System.out.println("Experiment name: " + experimentName);
-	mediator = new Mediator(experimentName, modelFileName);
+	System.out.println("Experiment file location: " + modelFileName);
+	mediator = new Mediator(experimentName, modelFileName, modelLocation);
 	session.setAttribute("mediator", mediator);
 	//Begin the experiment
 	mediator.beginNewExperiment();
@@ -46,26 +48,32 @@ if(phase==null){
 	<H2 style="text-align:center">Experiment Management System</H2>
 	<P style="text-align:center;">You will be creating an experiment for the <%= modelName  %> simulation model.</P>
 	<P style="text-align:center;">This model has the following <%= numberOfResponses %> responses available:</P>
-	<OL style="text-align:center;">
+	<P style="text-align:center;">
 	<%
 	Iterator<Map.Entry<String, String[]>> iter = responses.entrySet().iterator();
+	int counter = 1;
 	while(iter.hasNext()){ 
 		Map.Entry<String, String[]> entry = (Map.Entry<String, String[]>)iter.next();
 		%>
-		<LI><%=entry.getValue()[0] %></LI>
-		<%} %>
-	</OL>
+		[<%=counter %>]<%=entry.getValue()[0] %><BR />
+		<%
+		counter++;
+	}%>
+	</P>
 	
 	<P style="text-align:center;">This model has the following <%= numberOfParameters %> configurable parameters available:</P>
-	<OL style="text-align:center;">
+	<P style="text-align:center;">
 	<%
 	iter = parameters.entrySet().iterator();
+	counter = 1;
 	while(iter.hasNext()){ 
 		Map.Entry<String, String[]> entry = (Map.Entry<String, String[]>)iter.next();
 		%>
-		<LI><%=entry.getValue()[0] %></LI>
-		<%} %>
-	</OL>
+		[<%=counter %>]<%=entry.getValue()[0] %><BR />
+		<%
+		counter++;	
+	}%>
+	</P>
 	
 	<FORM action='main.jsp' method='GET' style="text-align:center;">
 	 <INPUT type='hidden' value='Objective' name='phase'>
