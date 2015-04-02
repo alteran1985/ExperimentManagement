@@ -1,0 +1,14 @@
+<model name="Schelling Model">
+ <output>
+  <response id="1" name="averageTypeLikeMe" displayName="Average of Like-neighbors" type="double" />
+ </output>
+ <input>
+  <parameter name="randomSeed" displayName="Random Number Seed" type="int" />
+  <parameter name="initialNumAgents" displayName="Initial Number of Agents" type="int" />
+  <parameter name="minDeathAge" displayName="Minimum Death Age" type="int" />
+  <parameter name="maxDeathAge" displayName="Maximum Death Age" type="int" />
+  <parameter name="worldHeight" displayName="World Height" type="int" />
+  <parameter name="worldWidth" displayName="World Width" type="int" />
+  <parameter name="percentLikeNeighbors" displayName="Percentage of Like Neighbors" type="double"/>
+ </input>
+</model>

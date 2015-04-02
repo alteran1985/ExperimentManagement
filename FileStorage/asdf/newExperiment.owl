@@ -1,14 +1,4 @@
 <?xml version="1.0"?>
-
-
-<!DOCTYPE Ontology [
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
-    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-]>
-
-
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
      xml:base="ExperimentOntology"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -16,11 +6,10 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      ontologyIRI="ExperimentOntology">
-    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
-    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Declaration>
         <Class IRI="#Design"/>
     </Declaration>
@@ -85,7 +74,13 @@
         <NamedIndividual IRI="#Design"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Design001"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Experiment"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Experiment001"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Experiment_Matrix"/>
@@ -103,19 +98,31 @@
         <NamedIndividual IRI="#Iteration"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Iteration001"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Level_Value"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Objective"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Objective001"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Response"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Response001"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Response_Value"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Results"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Results001"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#SamplingMethod"/>
@@ -125,8 +132,16 @@
         <NamedIndividual IRI="#Design"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Design"/>
+        <NamedIndividual IRI="#Design001"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Experiment"/>
         <NamedIndividual IRI="#Experiment"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Experiment"/>
+        <NamedIndividual IRI="#Experiment001"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Experiment_Matrix"/>
@@ -149,6 +164,10 @@
         <NamedIndividual IRI="#Iteration"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Iteration"/>
+        <NamedIndividual IRI="#Iteration001"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Level_Value"/>
         <NamedIndividual IRI="#Level_Value"/>
     </ClassAssertion>
@@ -157,8 +176,16 @@
         <NamedIndividual IRI="#Objective"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Objective"/>
+        <NamedIndividual IRI="#Objective001"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Response"/>
         <NamedIndividual IRI="#Response"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Response"/>
+        <NamedIndividual IRI="#Response001"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Response_Value"/>
@@ -167,6 +194,10 @@
     <ClassAssertion>
         <Class IRI="#Results"/>
         <NamedIndividual IRI="#Results"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Results"/>
+        <NamedIndividual IRI="#Results001"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#SamplingMethod"/>
@@ -188,9 +219,24 @@
         <NamedIndividual IRI="#Factor"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#Design001"/>
+        <NamedIndividual IRI="#Iteration001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasA"/>
+        <NamedIndividual IRI="#Design001"/>
+        <NamedIndividual IRI="#Response001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasA"/>
         <NamedIndividual IRI="#Experiment"/>
         <NamedIndividual IRI="#Iteration"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasA"/>
+        <NamedIndividual IRI="#Experiment001"/>
+        <NamedIndividual IRI="#Iteration001"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
@@ -240,12 +286,32 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasA"/>
         <NamedIndividual IRI="#Iteration"/>
-        <NamedIndividual IRI="#Design"/>
+        <NamedIndividual IRI="#Results"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasA"/>
         <NamedIndividual IRI="#Iteration"/>
-        <NamedIndividual IRI="#Results"/>
+        <NamedIndividual IRI="#Design"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <NamedIndividual IRI="#Experiment001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasA"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <NamedIndividual IRI="#Design001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasA"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <NamedIndividual IRI="#Results001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasA"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <NamedIndividual IRI="#Objective001"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
@@ -259,8 +325,18 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#Objective001"/>
+        <NamedIndividual IRI="#Iteration001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
         <NamedIndividual IRI="#Response"/>
         <NamedIndividual IRI="#Design"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#Response001"/>
+        <NamedIndividual IRI="#Design001"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
@@ -279,28 +355,98 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#Results001"/>
+        <NamedIndividual IRI="#Iteration001"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
         <NamedIndividual IRI="#SamplingMethod"/>
         <NamedIndividual IRI="#Design"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Design001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#weight"/>
+        <NamedIndividual IRI="#Design001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Experiment001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#weight"/>
         <NamedIndividual IRI="#Factor"/>
-        <Literal datatypeIRI="ExperimentOntologyExperimentOntology#integer">2</Literal>
+        <Literal datatypeIRI="ExperimentOntologyExperimentOntologyExperimentOntology#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#weight"/>
+        <NamedIndividual IRI="#Iteration001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#weight"/>
         <NamedIndividual IRI="#Level_Value"/>
-        <Literal datatypeIRI="ExperimentOntologyExperimentOntology#integer">1</Literal>
+        <Literal datatypeIRI="ExperimentOntologyExperimentOntologyExperimentOntology#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Objective001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#value"/>
+        <NamedIndividual IRI="#Objective001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">FactorScreening</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#weight"/>
+        <NamedIndividual IRI="#Objective001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#weight"/>
         <NamedIndividual IRI="#Response"/>
-        <Literal datatypeIRI="ExperimentOntologyExperimentOntology#integer">1</Literal>
+        <Literal datatypeIRI="ExperimentOntologyExperimentOntologyExperimentOntology#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Response001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#value"/>
+        <NamedIndividual IRI="#Response001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#weight"/>
+        <NamedIndividual IRI="#Response001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#weight"/>
         <NamedIndividual IRI="#Response_Value"/>
-        <Literal datatypeIRI="ExperimentOntologyExperimentOntology#integer">2</Literal>
+        <Literal datatypeIRI="ExperimentOntologyExperimentOntologyExperimentOntology#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#number"/>
+        <NamedIndividual IRI="#Results001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#weight"/>
+        <NamedIndividual IRI="#Results001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0</Literal>
     </DataPropertyAssertion>
     <InverseObjectProperties>
         <ObjectProperty IRI="#hasA"/>
@@ -310,5 +456,5 @@
 
 
 
-<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+<!-- Generated by the OWL API (version 3.4.10-SNAPSHOT) http://owlapi.sourceforge.net -->
 

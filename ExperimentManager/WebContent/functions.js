@@ -72,10 +72,31 @@ function updateConfiguration(currentPhase, controlType, dataSource){
 	case "TextBox":
 		data = data + features.value;
 		break;
+	case "CheckBox":
+		features = document.getElementsByName(currentPhase);
+		for(var i = 0; i<features.length; i++){
+			if(features[i].checked==true){
+				if(i!=features.length-1)
+					data = data + i + ",";
+				else
+					data = data + i;
+			}
+		}
+		break;
+	case "Multiple Text Boxes":
+		var numberOfFactorLevels = document.getElementById("numberOfFactorLevels").value;
+		alert(numberOfFactorLevels);
+		for(var i=0; i<numberOfFactorLevels; i++){
+			if(i!=numberOfFactorLevels-1)
+				data += document.getElementById("factorLevelValue" + (i+1)).value + ",";
+			else
+				data += document.getElementById("factorLevelValue" + (i+1)).value;
+		}
+		break;
 	default:
 		break;
 	}
-	//alert(data);
+	alert(data);
 	var outputDiv = document.getElementById("updatedConfiguration");
 	//Clear out the DIV
 	outputDiv.innerHTML = "";
@@ -87,4 +108,12 @@ function beginNewExperiment(){
 	var modelFileName = document.getElementById("modelFile").value;
 	alert(modelFileName);
 	window.location.replace("main.jsp?experimentName=" + experimentName + "&modelFileName=" + modelFileName);
+}
+
+function updateFactorValues(){
+	var container = document.getElementById("factorLevelEntries");
+	//var currentHTML = document.getElementById("factorLevelEntries").innerHTML;
+	var numberOfFactorLevels = document.getElementById("numberOfFactorLevels").value;
+	var data = "numberOfFactorLevels=" + numberOfFactorLevels;
+	requestAJAX("ComponentUpdates.jsp", data, container);
 }

@@ -37,11 +37,11 @@ if((Mediator)session.getAttribute("mediator")==null){
 
 if(phase==null){
 	//Recover model data
-	HashMap<String, HashMap<String, String[]>> modelData = mediator.getModelData();
+	LinkedHashMap<String, LinkedHashMap<String, String[]>> modelData = mediator.getModelData();
 	//Retrieve the model information for display
 	String modelName = modelData.get("model").get("name")[0];
-	HashMap<String, String[]> responses = modelData.get("responses");
-	HashMap<String, String[]> parameters = modelData.get("parameters");
+	LinkedHashMap<String, String[]> responses = modelData.get("responses");
+	LinkedHashMap<String, String[]> parameters = modelData.get("parameters");
 	int numberOfResponses = responses.size();
 	int numberOfParameters = parameters.size();
 %>

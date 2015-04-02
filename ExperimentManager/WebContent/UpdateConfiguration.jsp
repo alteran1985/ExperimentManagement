@@ -9,8 +9,26 @@
 <%@page import="backend.Mediator" %>
 <%@page import="ontologyinterface.*" %>
 <HTML>
-<%
+<%  
 	Mediator mediator = (Mediator) session.getAttribute("mediator");
+	//Get the current phase
+	String currentPhase = request.getParameter("currentPhase");
+	//Get the values provided by the user
+	String value = request.getParameter("value");
+	
+	if(currentPhase.equals("Objective")){
+		mediator.processObjective(value);
+	}else if(currentPhase.equals("Response")){
+		mediator.processResponses(value);
+	}else if(currentPhase.equals("Factors")){
+		mediator.processFactors(value);
+	}else if(currentPhase.equals("SpecificFactor")){
+		mediator.processFactor(value);
+	}else{
+		mediator.processSamplingMethod(value);
+	}
+	
+	/*
 	FeatureModelLoader loader = new FeatureModelLoader(mediator.getBasePath());
 	FeatureModel featureModel = loader.get_feature_model();
 	Configuration configuration = mediator.getConfiguration();
@@ -25,11 +43,9 @@
 	String value = request.getParameter("value");
 	//Create the individuals in the ontology
 	if(currentPhase.equals("Response")){
-		ontologyBuilder.addNewIndividual("Response");
-		ontologyBuilder.addNewDataProperty("value", value);
+		mediator.addResponse(value);
 	}else if(currentPhase.equals("FactorValue")){
-		ontologyBuilder.addNewIndividual("Level_Value");
-		ontologyBuilder.addNewDataProperty("value", value);
+		mediator.addFactorValue(value);
 	}
 	//Depending on the data source, do something different
 	if (dataSource.equals("FeatureModel")){ //Update the feature model directly
@@ -77,9 +93,9 @@
 			}
 		}
 	}
-	//System.out.println(responseToClient);
+	//System.out.println(responseToClient);*/
 	mediator.saveConfiguration();
-	ontologyBuilder.printStructure();
-	response.sendRedirect("http://localhost:8080/ExperimentManager/main.jsp?phase=" + mediator.nextPhase());
+	mediator.printStructure();
+	response.sendRedirect("main.jsp?phase=" + mediator.nextPhase());
 %>
 </HTML>
