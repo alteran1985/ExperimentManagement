@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="4">
+		<struct>
+			<and abstract="true" mandatory="true" name="ExperimentIteration">
+				<alt abstract="true" mandatory="true" name="Objective">
+					<feature mandatory="true" name="FactorScreening"/>
+					<feature mandatory="true" name="PolicyComparison"/>
+					<feature mandatory="true" name="FindRobustDecision"/>
+				</alt>
+				<and abstract="true" mandatory="true" name="Design">
+					<alt abstract="true" mandatory="true" name="Response">
+						<feature mandatory="true" name="OneResponse"/>
+						<feature mandatory="true" name="TwoResponses"/>
+						<feature mandatory="true" name="ThreeResponses"/>
+					</alt>
+					<and abstract="true" mandatory="true" name="Factors">
+						<alt abstract="true" mandatory="true" name="NumberOfFactors">
+							<feature mandatory="true" name="OneFactor"/>
+							<feature mandatory="true" name="TwoFactors"/>
+							<feature mandatory="true" name="ThreeFactors"/>
+							<feature mandatory="true" name="FourFactors"/>
+							<feature mandatory="true" name="FiveOrMoreFactors"/>
+						</alt>
+						<alt abstract="true" mandatory="true" name="FactorLevels">
+							<feature mandatory="true" name="OneFactorLevel"/>
+							<feature mandatory="true" name="TwoFactorLevels"/>
+							<feature mandatory="true" name="ThreeFactorLevels"/>
+							<feature mandatory="true" name="FourOrMoreFactorLevels"/>
+						</alt>
+					</and>
+					<alt abstract="true" mandatory="true" name="SamplingMethod">
+						<feature mandatory="true" name="Randomized"/>
+						<feature mandatory="true" name="FullFactorial"/>
+						<feature mandatory="true" name="FractionalFactorial"/>
+						<feature mandatory="true" name="CentralComposite"/>
+						<feature mandatory="true" name="LatinHyperCube"/>
+					</alt>
+				</and>
+				<and abstract="true" mandatory="true" name="StatisticalAnalysis">
+					<alt abstract="true" mandatory="true" name="AnalysisDepth">
+						<feature mandatory="true" name="Default"/>
+						<feature mandatory="true" name="Custom"/>
+					</alt>
+					<or abstract="true" mandatory="true" name="AnalysisType">
+						<feature mandatory="true" name="ANOVA"/>
+						<feature mandatory="true" name="MANOVA"/>
+						<feature mandatory="true" name="HypothesisTest"/>
+						<feature mandatory="true" name="Metamodel"/>
+					</or>
+				</and>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<imp>
+					<conj>
+						<disj>
+							<var>TwoFactorLevels</var>
+							<var>ThreeFactorLevels</var>
+						</disj>
+						<disj>
+							<var>TwoFactors</var>
+							<disj>
+								<var>ThreeFactors</var>
+								<var>FourFactors</var>
+							</disj>
+						</disj>
+					</conj>
+					<var>FullFactorial</var>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>FiveOrMoreFactors</var>
+					<var>LatinHyperCube</var>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<conj>
+						<var>OneResponse</var>
+						<var>FullFactorial</var>
+						<conj>
+							
+							<var>Default</var>
+						</conj>
+					</conj>
+					<var>ANOVA</var>
+				</imp>
+			</rule>
+		</constraints>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

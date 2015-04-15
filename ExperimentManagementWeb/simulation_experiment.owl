@@ -1,0 +1,457 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/azt0018/ontologies/2014/7/simulation_experiments"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/azt0018/ontologies/2014/7/simulation_experiments">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#ANOVATable"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Chart"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConfidenceInterval"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Experiment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExperimentDesign"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExperimentIteration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExperimentObjective"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExperimentResults"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Factor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FactorInteraction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FactorLevel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FactorLevelCombination"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FactorValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FinalEffectsMatrix"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HypothesisTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Primitive"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PrimitiveBoolean"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PrimitiveFloat"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PrimitiveInteger"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PrimitiveString"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResponseValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SignificantFactors"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StatisticalAnalyses"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Value"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#areResultsOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#correspondsToFactorLevelCombination"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#correspondsToResponseValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#formsPartOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDesign"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasExperimentObjective"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasExperimentResults"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasFactorLevel"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasFactorValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasIteration"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isComposedOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isDesignOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isFactorLevelOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isIterationOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isObjectiveOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isValueOf"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#ANOVATable"/>
+        <Class IRI="#StatisticalAnalyses"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Chart"/>
+        <Class IRI="#ExperimentResults"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConfidenceInterval"/>
+        <Class IRI="#StatisticalAnalyses"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExperimentDesign"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isDesignOf"/>
+            <Class IRI="#ExperimentIteration"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExperimentIteration"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isIterationOf"/>
+            <Class IRI="#Experiment"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExperimentObjective"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isObjectiveOf"/>
+            <Class IRI="#Experiment"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExperimentResults"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#areResultsOf"/>
+            <Class IRI="#ExperimentIteration"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Factor"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#formsPartOf"/>
+            <Class IRI="#FactorInteraction"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorInteraction"/>
+        <ObjectMinCardinality cardinality="2">
+            <ObjectProperty IRI="#isComposedOf"/>
+            <Class IRI="#Factor"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorLevel"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#correspondsToFactorLevelCombination"/>
+            <Class IRI="#FactorLevelCombination"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorLevel"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#isFactorLevelOf"/>
+            <Class IRI="#Factor"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorLevelCombination"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#correspondsToResponseValue"/>
+            <Class IRI="#ResponseValue"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorValue"/>
+        <Class IRI="#FactorLevel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FactorValue"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#isFactorValueOf"/>
+            <Class IRI="#FactorLevel"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FinalEffectsMatrix"/>
+        <Class IRI="#ExperimentResults"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HypothesisTest"/>
+        <Class IRI="#StatisticalAnalyses"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Primitive"/>
+        <Class IRI="#Value"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrimitiveBoolean"/>
+        <Class IRI="#Primitive"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrimitiveFloat"/>
+        <Class IRI="#Primitive"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrimitiveInteger"/>
+        <Class IRI="#Primitive"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrimitiveString"/>
+        <Class IRI="#Primitive"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ResponseValue"/>
+        <Class IRI="#ExperimentResults"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SignificantFactors"/>
+        <Class IRI="#ExperimentResults"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StatisticalAnalyses"/>
+        <Class IRI="#ExperimentResults"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Value"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isValueOf"/>
+            <Class IRI="#FactorValue"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Value"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isValueOf"/>
+            <Class IRI="#ResponseValue"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#Chart"/>
+        <Class IRI="#FinalEffectsMatrix"/>
+        <Class IRI="#ResponseValue"/>
+        <Class IRI="#SignificantFactors"/>
+        <Class IRI="#StatisticalAnalyses"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#PrimitiveBoolean"/>
+        <Class IRI="#PrimitiveFloat"/>
+        <Class IRI="#PrimitiveInteger"/>
+        <Class IRI="#PrimitiveString"/>
+    </DisjointClasses>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#areResultsOf"/>
+        <ObjectProperty IRI="#hasExperimentResults"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#correspondsToResponseValue"/>
+        <ObjectProperty IRI="#correspondsToFactorLevelCombination"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isComposedOf"/>
+        <ObjectProperty IRI="#formsPartOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isDesignOf"/>
+        <ObjectProperty IRI="#hasDesign"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isObjectiveOf"/>
+        <ObjectProperty IRI="#hasExperimentObjective"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isFactorLevelOf"/>
+        <ObjectProperty IRI="#hasFactorLevel"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+        <ObjectProperty IRI="#hasFactorValue"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isIterationOf"/>
+        <ObjectProperty IRI="#hasIteration"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#isValueOf"/>
+        <ObjectProperty IRI="#hasValue"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#correspondsToResponseValue"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#isFactorLevelOf"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#isIterationOf"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#isObjectiveOf"/>
+    </FunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#correspondsToResponseValue"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+    </InverseFunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#areResultsOf"/>
+        <Class IRI="#ExperimentResults"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#correspondsToFactorLevelCombination"/>
+        <Class IRI="#ResponseValue"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasExperimentObjective"/>
+        <Class IRI="#Experiment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasExperimentResults"/>
+        <Class IRI="#ExperimentIteration"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasIteration"/>
+        <Class IRI="#Experiment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isComposedOf"/>
+        <Class IRI="#FactorInteraction"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isDesignOf"/>
+        <Class IRI="#ExperimentDesign"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isFactorLevelOf"/>
+        <Class IRI="#FactorLevel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+        <Class IRI="#FactorValue"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isIterationOf"/>
+        <Class IRI="#ExperimentIteration"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isObjectiveOf"/>
+        <Class IRI="#ExperimentObjective"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isValueOf"/>
+        <Class IRI="#Value"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#areResultsOf"/>
+        <Class IRI="#ExperimentIteration"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#correspondsToFactorLevelCombination"/>
+        <Class IRI="#FactorLevelCombination"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasExperimentObjective"/>
+        <Class IRI="#ExperimentObjective"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasExperimentResults"/>
+        <Class IRI="#ExperimentResults"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasIteration"/>
+        <Class IRI="#ExperimentIteration"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isComposedOf"/>
+        <Class IRI="#Factor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isDesignOf"/>
+        <Class IRI="#ExperimentIteration"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isFactorLevelOf"/>
+        <Class IRI="#Factor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isFactorValueOf"/>
+        <Class IRI="#FactorLevel"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isIterationOf"/>
+        <Class IRI="#Experiment"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isObjectiveOf"/>
+        <Class IRI="#Experiment"/>
+    </ObjectPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
